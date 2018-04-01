@@ -51,12 +51,12 @@
 #mark_center {
     position: absolute;
 	right: 31em;
-	bottom: -0.2em;
+	bottom: -0.4em;
 }
 
 #crowd {
 	position: absolute;
-	right: 28em;
+	right: 29em;
 	bottom: -4em;
 	width: 18em;
 }
@@ -73,6 +73,20 @@
 	background: #000000;
 }
 
+body.homepage {
+	background: white;
+}
+
+body {
+	background-color:#269;
+    background-image: linear-gradient(rgba(255,255,255,.25) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255,255,255,.25) 2px, transparent 2px),
+    linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.2) 1px, transparent 1px);
+    background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
+} 
+
 .jumbotron {
 	background-color:#269;
     background-image: linear-gradient(rgba(255,255,255,.25) 2px, transparent 2px),
@@ -83,7 +97,7 @@
     background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
 } 
 
-.jumbotron h1 {
+h1.blueprint {
    font-family: "Hello Blueprint", sans-serif;
 }
 
@@ -223,7 +237,10 @@
   }
 }
 
-
+.question {
+	padding: 1em;
+	margin: 1em;
+}
 
 /*
 .navbar-brand {
