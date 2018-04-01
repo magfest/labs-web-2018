@@ -50,8 +50,15 @@
 
 #mark_center {
     position: absolute;
-	right: 30em;
-	bottom: 0;
+	right: 31em;
+	bottom: -0.2em;
+}
+
+#crowd {
+	position: absolute;
+	right: 28em;
+	bottom: -4em;
+	width: 18em;
 }
 
 .card #content {
