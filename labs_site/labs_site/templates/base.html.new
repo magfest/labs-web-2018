@@ -1,0 +1,132 @@
+{% load static wagtailuserbar %}
+
+<!-- DOCTYPE -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+        {% block title %}
+            {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+            {% with self.get_site.site_name as site_name %}
+                {% if site_name %}- {{ site_name }}{% endif %}
+            {% endwith %}
+        {% endblock %}
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {# Global stylesheets #}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/maglabs.css' %}">
+
+    {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+	
+    <!-- YOUR CONTENT STARTS HERE -->
+	<div class="container-fluid">
+            {% block header %}
+                {% include "header.html" with parent=site_root calling_page=self %}
+            {% endblock %}
+            {% block content %}
+            {% endblock %}
+<div class="jumbotron col-md text-light">
+  <h1 class="display-4 blueprint">Play, Learn, Create, Rock!</h1>
+  <div class="row">
+	  <div class="col-md">
+	  <p class="lead">MAGLabs is a unique 3 day event, bringing maker content to the world of gaming.  Explore our giant video game library, arcade, and concert hall.  Learn to make your first game, create a cosplay, or solder your own electronic projects.  All available to you 24 hours a day.</p>
+	  <a class="btn btn-primary btn-lg" href="https://labs2018.uber.magfest.org/uber/preregistration/form" role="button">Register Now</a>
+	  	<a class="btn btn-outline-primary btn-lg" href="https://book.passkey.com/event/49604307/owner/10925932/landing" role="button">Book Hotel</a>
+	  </div>
+	  <div class="col-md announcement-container">
+	  </div>
+  </div>
+</div>
+<div id="content">
+<div class="row">
+	<div class="col-md">
+		<div class="card">
+		<div class="card-block">
+			<img src="play.jpg" class="card-img-top" />
+			<div id="content">
+			<h3 class="card-title">Play</h3>
+			<p class="card-text">Come to our play area to unwind and have some fun.  Our play area is open 24 hours and has all the console, arcade, LAN, VR, and tabletop gaming your little gamer heart desires.  You can also take a break and play with Legos or gather your friends up and take a turn in our Escape Room.  And stay tuned for new test chambers!</p>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="col-md">
+		<div class="card">
+			<div class="card-block">
+				<img src="learn.jpg" class="card-img-top" />
+			    <div id="content">
+				<h3 class="card-title">Learn</h3>
+				<p class="card-text">Have you ever wanted to know what a NURBS object is?  Me neither, but you can learn that and a whole lot more in our panels and workshops.  Whether you want to learn to pick locks, gain a deep appreciation for the genius that is Metal Gear Solid 4, or even just definitively determine the best soda in the world, we promise to entertain and inform.  Hey, even useless knowledge is knowledge.</p>
+			    </div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md">
+		<div class="card">
+		<div class="card-block">
+			<img src="create.jpg" class="card-img-top" />
+			<div id="content">
+			<h3 class="card-title">Create</h3>
+			<p class="card-text">Put your newfound knowledge to work in our Create area.  Visit our makerspace and build your own circuit board, or sew a plushie.  Take workshops in leather working, foam crafting, mould making, and more!  Show off your creations, be it cosplay, armor, props, or more.  If you have a skill you'd like to teach people, run a workshop and share your knowledge!  Bring parts for your next PC build and take part in our PC build challenge.  Even get help on creating your own video game.  The sky, or our insurance policy coverage, is the limit</p>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="col-md">
+		<div class="card">
+			<div class="card-block">
+				<img src="rock.jpg" class="card-img-top" />
+				<div id="content">
+				<h3 class="card-title">Rock</h3>
+				<p class="card-text">Each MAGFest event is a musical mecca, and this is no different.  Come catch our awesome lineup of concerts, and find your new favorite VGM artist.  You can also take your own musical skills to the next level with workshops in our Jam Clinic, and you can learn audio engineering and sound design with our concert hall workshops as well.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="row">
+		</div>
+</div>
+	</div>
+<div class="modal fade" id="testChamber" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h5 class="modal-title">Test Chambers</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Test Chambers are the heart and soul of MAGLabs.  If you have an idea that you would like to try to make happen, we have the volunteers, space and resources to help bring your idea to life.  Our lego room, escape room, VR area, and lock picking have all started as test chambers.  The next idea could be yours.</p>
+        <iframe class="airtable-embed" src="https://airtable.com/embed/shrWKZme6dtRtQVWu?backgroundColor=blue" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- YOUR CONTENT ENDS HERE -->
+
+
+    <!-- JavaScript: placed at the end of the document so the pages load faster -->
+		<!-- jQuery library -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+		<!-- Popper -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+		<!-- Latest compiled and minified Bootstrap JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
