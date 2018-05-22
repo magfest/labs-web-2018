@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailimages_tags gallery_tags %}
+
+{% block body_class %}homepage{% endblock %}
+
+{% block content %}
+<div class="jumbotron col-md text-light">
+    <div class="row">
+        <div class="col-md">
+            <h1 class="display-4 blueprint">{{ page.title }}</h1>
+	        <p class="lead">{{ page.description }}</p>
+        </div>
+        <div class="col-md">
+            {% gallery page.gallery %}
+	    </div>
+    </div>
+</div>
+{%  endblock %}

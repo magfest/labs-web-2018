@@ -1,0 +1,30 @@
+{% load wagtailimages_tags %}
+
+<div id="gallery" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    {% for img in images %}
+    <li data-target="#gallery" data-slide-to="0"{% if forloop.first %} class="active"{% endif %}></li>
+    {% endfor %}
+  </ul>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+      {% for img in images %}
+      {% image img max-700x700 as img_obj %}
+      <div class="carousel-item{% if forloop.first %} active{% endif %}">
+          <img src="{{img_obj.url}}" alt="{{ image.title }}">
+      </div>
+      {% endfor %}
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#gallery" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#gallery" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+
+</div>
