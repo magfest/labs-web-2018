@@ -24,7 +24,7 @@ class EventSettings(BaseSetting):
         max_length=8,
         verbose_name='Event Type',
         choices=TYPE_CHOICE,
-        blank=False
+        blank=True
     )
 
     # Registration Info
@@ -60,8 +60,8 @@ class EventSettings(BaseSetting):
     venue = models.CharField(max_length=128, verbose_name='Venue Name', blank=True)
     venue_address = models.CharField(max_length=128, verbose_name='Venue Address', blank=True)
 
-    at_the_con = models.BooleanField(blank=True)
-    post_con = models.BooleanField(blank=True)
+    at_the_con = models.BooleanField(blank=True, default=False)
+    post_con = models.BooleanField(blank=True, default=False)
 
     def save(self, *args, **kwargs):
         headers = {
@@ -72,10 +72,13 @@ class EventSettings(BaseSetting):
             "method": "config.info",
             "jsonrpc": "2.0",
         }
-        response = requests.post(
+        response = None
+
+        if self.api_url:
+            response = requests.post(
             self.api_url, data=json.dumps(payload), headers=headers).json()
 
-        if response['result']:
+        if response and response['result']:
             uber_config = response['result']
 
             self.api_version = uber_config['API_VERSION']
