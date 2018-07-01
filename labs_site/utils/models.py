@@ -43,12 +43,12 @@ class EventSettings(BaseSetting):
     api_url = models.URLField(
         verbose_name='API Url',
         help_text='Event Uber API url',
-        blank=False
+        blank=True
     )
     api_token = models.CharField(
         max_length=48,
         verbose_name='Uber API Token',
-        blank=False
+        blank=True
     )
 
     # Event info (determined by Uber API)
