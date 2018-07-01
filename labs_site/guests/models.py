@@ -42,28 +42,8 @@ class Guest(index.Indexed, ClusterableModel):
 
 
 @register_snippet
-class Band(index.Indexed, ClusterableModel):
-    name = models.CharField(
-        max_length=254
-    )
-    bio = RichTextField()
-    picture = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-
-    @property
-    def thumb_image(self):
-        # Returns an empty string if there is no profile pic or the rendition
-        # file can't be found.
-        try:
-            return self.image.get_rendition('fill-150x150').img_tag()
-        except:
-            return ''
+class Band(Guest):
+    song_url = models.URLField()
 
     def __str__(self):
         return self.name
