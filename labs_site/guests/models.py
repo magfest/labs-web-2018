@@ -15,13 +15,14 @@ class Guest(index.Indexed, ClusterableModel):
         max_length=254
     )
     bio = RichTextField()
-    picture = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
+    picture = models.URLField()
+    facebook_handle = models.URLField()
+    twitter_handle = models.TextField(
+        max_length=16
     )
+    website = models.URLField()
+
+
 
 
     @property
