@@ -6,6 +6,7 @@ from django.db import models
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.search import index
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from modelcluster.models import ClusterableModel
 
@@ -54,3 +55,16 @@ class Band(Guest):
         verbose_name_plural = 'Bands'
 
 
+class GuestPage(Page):
+    guest = models.ForeignKey(
+        'guests.Guest',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = Page.content_panels + [
+        SnippetChooserPanel('guest'),
+        # ...
+    ]
