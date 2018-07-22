@@ -1,9 +1,11 @@
 from datetime import datetime
 import requests
 import json
+from json import JSONDecodeError
 
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.fields import ArrayField
+from django.core.validators import ValidationError
 from django.db import models
 
 from modelcluster.fields import ParentalKey
@@ -20,6 +22,10 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+
+
+class JSONRPCError(Exception):
+    pass
 
 
 class EventPage(Page):
@@ -81,6 +87,7 @@ class Event(Orderable, models.Model):
     price = models.FloatField(db_index=True, blank=True, null=True, verbose_name='Current Price')
     show_registration = models.BooleanField(db_index=True, default=True)
     show_hotels = models.BooleanField(db_index=True, default=True)
+    refresh = models.BooleanField(db_index=True, default=True)
 
     # Registration Info
     registration_link = models.URLField(
@@ -134,7 +141,8 @@ class Event(Orderable, models.Model):
             FieldPanel('registration_link', heading='Registration Link'),
             FieldPanel('show_registration', heading='Show link to register?'),
             FieldPanel('hotel_link', heading='Hotel Booking Link'),
-            FieldPanel('show_hotels', heading='Show link to book hotels?')
+            FieldPanel('show_hotels', heading='Show link to book hotels?'),
+            FieldPanel('refresh', heading='Fetch information from Uber?')
         ], heading='Settings')
     ]
 
@@ -142,44 +150,70 @@ class Event(Orderable, models.Model):
     def jsonrpc_api(self):
         return '{}/uber/jsonrpc/'.format(self.api_url)
 
-    def save(self, *args, **kwargs):
-        headers = {
-            'content-type': 'application/json',
-            'X-Auth-Token': self.api_token
-        }
-        payload = {
-            "method": "config.info",
-            "jsonrpc": "2.0",
-        }
-        response = None
+    def jsonrpc_api_call(self, method):
+        try:
+            headers = {
+                'content-type': 'application/json',
+                'X-Auth-Token': self.api_token
+            }
+            payload = {
+                "method": method,
+                "jsonrpc": "2.0",
+            }
+            response = requests.post(self.jsonrpc_api, data=json.dumps(payload), headers=headers).json()
+            if response.get('results'):
+                return response['results']
+            elif response.get('error'):
+                raise JSONRPCError(response['error'].get('message', 'There was an unknown error.'))
+        except (Exception, ConnectionError, JSONDecodeError) as e:
+            raise e
 
-        if self.api_url:
-            self.api_url = self.api_url.strip('/')
-            if not self.registration_link:
-                self.registration_link = '{}/uber/preregistration/form/'.format(self.api_url)
-            response = requests.post(
-                self.jsonrpc_api, data=json.dumps(payload), headers=headers)\
-
-            response = response.json()
-
-        if response and response['result']:
-            uber_config = response['result']
-
-            self.api_version = uber_config['API_VERSION']
-            self.event_name = uber_config['EVENT_NAME']
-            self.org_name = uber_config['ORGANIZATION_NAME']
-            if uber_config['YEAR']:
-                self.year = uber_config['YEAR']
+    def validate_api_token(self):
+        refresh_warning = 'Disable refresh to ignore this message.'
+        if self.refresh:
+            message = {}
+            if self.api_url:
+                try:
+                    response = self.jsonrpc_api_call('config.info')
+                    if response.get('result'):
+                        message = None
+                except ConnectionError:
+                    message['api_url'] = 'This is not a valid URL. {}'.format(refresh_warning)
+                except JSONRPCError:
+                    message['api_token'] = 'The token failed to validate. {}'.format(refresh_warning)
+                except JSONDecodeError:
+                    message['api_url'] = 'This url is malformed, seek help. {}'.format(refresh_warning)
             else:
-                self.year = datetime.strptime(uber_config['EPOCH'], '%Y-%m-%d %H:%M:%S.000000').year
-            self.epoch = uber_config['EPOCH']
-            self.eschaton = uber_config['ESCHATON']
+                message['api_url'] = 'This cannot be blank. {}'.format(refresh_warning)
+            if message:
+                raise ValidationError(message=message)
 
-            self.venue = uber_config['EVENT_VENUE']
-            self.venue_address = uber_config['EVENT_VENUE_ADDRESS']
+    def clean(self):
+        self.validate_api_token()
+        super(Event, self).clean()
 
-            self.at_the_con = uber_config['AT_THE_CON']
-            self.post_con = uber_config['POST_CON']
+    def save(self, *args, **kwargs):
+        if self.refresh:
+            uber_config = {}
+            if self.api_url:
+                if not self.registration_link:
+                    self.registration_link = '{}/uber/preregistration/form/'.format(self.api_url)
+                uber_config.update(self.jsonrpc_api_call('config.info'))
+            self.api_version = uber_config.get('API_VERSION', self.api_version)
+            self.event_name = uber_config.get('EVENT_NAME', self.event_name)
+            self.org_name = uber_config.get('ORGANIZATION_NAME', self.org_name)
+            self.epoch = uber_config.get('EPOCH', self.epoch)
+            self.eschaton = uber_config.get('ESCHATON', self.eschaton)
+            self.year = uber_config.get('YEAR', datetime.strptime(self.epoch, '%Y-%m-%d %H:%M:%S.000000').year)
+
+            self.venue = uber_config.get('EVENT_VENUE', self.venue)
+            self.venue_address = uber_config.get('EVENT_VENUE_ADDRESS', self.venue_address)
+
+            self.at_the_con = uber_config.get('AT_THE_CON', self.at_the_con)
+            self.post_con = uber_config.get('POST_CON', self.post_con)
+
+            self.price = uber_config.get('BADGE_PRICE', self.price)
+            self.refresh = False
         super(Event, self).save(*args, **kwargs)
 
     def __str__(self):
