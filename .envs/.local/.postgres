@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=magweb
+POSTGRES_USER=kTXDJbBtHwjZUqCxYiZmXCCUmLKrAqBK
+POSTGRES_PASSWORD=YfRhTSBoj1vDvL4KcrdItUTXFE5AtdobVT2WdYawDopV5KJPwH4gTrZP3oGEbXwM
