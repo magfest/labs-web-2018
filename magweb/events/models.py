@@ -58,6 +58,8 @@ class EventPage(Page):
 
     ]
 
+    parent_page_types = ['home.HomePage']
+
     def get_template(self, request, *args, **kwargs):
         template = super(EventPage, self).get_template(request, *args, **kwargs)
         if self.template_name:
@@ -163,6 +165,8 @@ class Event(Orderable, models.Model):
             response = requests.post(self.jsonrpc_api, data=json.dumps(payload), headers=headers).json()
             if response.get('results'):
                 return response['results']
+            elif response.get('result'):
+                return response['result']
             elif response.get('error'):
                 raise JSONRPCError(response['error'].get('message', 'There was an unknown error.'))
         except (Exception, ConnectionError, JSONDecodeError) as e:
@@ -199,7 +203,7 @@ class Event(Orderable, models.Model):
                 if not self.registration_link:
                     self.registration_link = '{}/uber/preregistration/form/'.format(self.api_url)
                 uber_config.update(self.jsonrpc_api_call('config.info'))
-            self.api_version = uber_config.get('API_VERSION', self.api_version)
+            # self.api_version = uber_config.get('API_VERSION', self.api_version)
             self.event_name = uber_config.get('EVENT_NAME', self.event_name)
             self.org_name = uber_config.get('ORGANIZATION_NAME', self.org_name)
             self.epoch = uber_config.get('EPOCH', self.epoch)

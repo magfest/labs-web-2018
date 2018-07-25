@@ -71,6 +71,8 @@ class Announcement(index.Indexed, ClusterableModel):
 
 class AnnouncementPage(Page):
 
+    parent_page_types = ['events.EventPage', 'home.HomePage']
+
     content_panels = Page.content_panels + [
         # InlinePanel('announcements'),
         # ...
