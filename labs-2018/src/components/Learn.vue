@@ -1,0 +1,30 @@
+<template>
+  <v-flex 
+    xs12 
+    sm6 
+    md3
+  >
+    <v-card
+      height="100%"
+      tile
+      flat
+      class="pad-card"
+    >
+      <v-card-media
+        :src="require('../assets/learn.jpg')"
+        :contain="true"
+        height="25vh"
+      ></v-card-media>
+      <v-card-title>
+        <h2>Learn</h2>
+        <p>Have you ever wanted to know what a NURBS object is? Me neither, but you can learn that and a whole lot more in our panels and workshops. Whether you want to learn to pick locks, gain a deep appreciation for the genius that is Metal Gear Solid 4, or even just definitively determine the best soda in the world, we promise to entertain and inform. Hey, even useless knowledge is knowledge.</p>
+      </v-card-title>
+    </v-card>
+  </v-flex>
+</template>
+
+<style>
+.pad-card{
+  padding:5px;
+}
+</style>

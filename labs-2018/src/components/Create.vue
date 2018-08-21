@@ -1,0 +1,30 @@
+<template>
+  <v-flex 
+    xs12 
+    sm6 
+    md3
+  >
+    <v-card
+      height="100%"
+      tile
+      flat
+      class="pad-card"
+    >
+      <v-card-media
+        :src="require('../assets/create.jpg')"
+        :contain="true"
+        height="25vh"
+      ></v-card-media>
+      <v-card-title>
+        <h2>Create</h2>
+        <p>Put your newfound knowledge to work in our Create area. Visit our makerspace and build your own circuit board, or sew a plushie. Take workshops in leather working, foam crafting, mould making, and more! Show off your creations, be it cosplay, armor, props, or more. If you have a skill you'd like to teach people, run a workshop and share your knowledge! Bring parts for your next PC build and take part in our PC build challenge. Even get help on creating your own video game. The sky, or our insurance policy coverage, is the limit</p>
+      </v-card-title>
+    </v-card>
+  </v-flex>
+</template>
+
+<style>
+.pad-card{
+  padding:5px;
+}
+</style>

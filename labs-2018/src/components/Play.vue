@@ -1,0 +1,30 @@
+<template>
+  <v-flex 
+    xs12 
+    sm6 
+    md3
+  >
+    <v-card
+      height="100%"
+      tile
+      flat
+      class="pad-card"
+    >
+      <v-card-media
+        :src="require('../assets/play.jpg')"
+        :contain="true"
+        height="25vh"
+      ></v-card-media>
+      <v-card-title>
+        <h2>Play</h2>
+        <p>Come to our play area to unwind and have some fun. Our play area is open 24 hours and has all the console, arcade, LAN, VR, and tabletop gaming your little gamer heart desires. You can also take a break and play with Legos or gather your friends up and take a turn in our Escape Room. And stay tuned for new test chambers!</p>
+      </v-card-title>
+    </v-card>
+  </v-flex>
+</template>
+
+<style>
+.pad-card{
+  padding:5px;
+}
+</style>

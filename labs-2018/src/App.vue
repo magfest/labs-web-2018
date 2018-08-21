@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <Nav/>
+    <v-app>
+      <Nav/>
+      <v-content  class="mainContent">
+        <router-view></router-view>
+      </v-content>
+    </v-app>
   </div>
 </template>
 
@@ -21,7 +26,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: white;
+  background-color:#269;
+  background-image: linear-gradient(rgba(127,127,127,.25) 2px, transparent 2px),
+  linear-gradient(90deg, rgba(127,127,127,.25) 2px, transparent 2px),
+  linear-gradient(rgba(127,127,127,.2) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(127,127,127,.2) 1px, transparent 1px);
+  background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
 </style>
