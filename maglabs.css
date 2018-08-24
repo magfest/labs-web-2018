@@ -261,3 +261,13 @@ h1.blueprint {
   height:100%;
 }
 */
+
+.rock img {
+  width: 100%;
+  height: 252px;
+  object-fit: cover;
+}
+
+.rock .row {
+  margin-bottom: 10px;
+}
