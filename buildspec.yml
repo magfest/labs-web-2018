@@ -3,12 +3,13 @@ version: 0.2
 phases:
   install:
     commands:
+      - cd labs-2018
       - npm install
   build:
     commands:
+      - cd labs-2018
       - npm run build
 artifacts:
   files:
     - dist
   discard-paths: yes
-  base-directory: labs-2018
