@@ -11,4 +11,3 @@ phases:
 artifacts:
   files:
     - labs-2018/dist
-  discard-paths: yes
