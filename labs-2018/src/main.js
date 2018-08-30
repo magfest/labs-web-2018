@@ -20,6 +20,7 @@ Vue.use(VueRouter)
 
 import Home from './components/Home'
 import Faq from "./components/Faq"
+import Guests from "./components/Guests"
 import store from './store'
 const router = new VueRouter({
   mode: 'history',
@@ -30,6 +31,9 @@ const router = new VueRouter({
     },
     {
       path: "/faq", component: Faq
+    },
+    {
+      path: '/guests', component: Guests
     }
   ]
 })

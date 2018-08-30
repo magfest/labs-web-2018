@@ -1,12 +1,11 @@
 <template>
-  <v-toolbar scroll-off-screen absolute color="primary" dark>
+  <v-toolbar  color="primary" dark>
     <v-toolbar-title><v-btn flat to="/" active-class="">MagLabs 2018</v-btn></v-toolbar-title>
     <v-spacer></v-spacer>
       <span v-if="windowSize.x > 768">
         <v-btn 
           flat 
           :to="{path:'/faq'}"
-          v-bind:class="{hidden:shouldHide}"
           >FAQ</v-btn>
         <Hotel :use="'nav'"/>
         <Register :use="'nav'"/>
