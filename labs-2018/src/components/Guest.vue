@@ -41,13 +41,16 @@ export default {
     website() {
       if (this.guest.bio.website.match(/http/) == 'http'){
         return this.guest.bio.website
-
       } else {
         return 'http://' + this.guest.bio.website
       }
     },
     facebook(){
-      return 'https://' + this.guest.bio.facebook
+      if (this.guest.bio.facebook.match(/http/) == 'http'){
+        return this.guest.bio.facebook
+      } else {
+        return 'http://' + this.guest.bio.facebook
+      }
     },
     twitter(){
       if (this.guest.bio.twitter.match(/twitter/) == 'twitter'){
