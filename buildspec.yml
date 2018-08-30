@@ -10,4 +10,4 @@ phases:
       - npm run build
 artifacts:
   files:
-    - '**/*'
+    - 'labs-2018/dist/**/*'
