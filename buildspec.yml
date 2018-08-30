@@ -3,8 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - cd labs-2018
       - bash download-content.sh
+      - cd labs-2018
       - npm install
   build:
     commands:
