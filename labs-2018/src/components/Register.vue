@@ -4,7 +4,7 @@
   </v-btn>
   <v-btn 
     v-else 
-    href="hhttps://labs2018.uber.magfest.org/uber/preregistration/form"
+    href="https://labs2018.uber.magfest.org/uber/preregistration/form"
     color="secondary"
   >
     Register Now
