@@ -79,11 +79,14 @@ export default {
       }
     },
     twitter(){
-      if (this.guest.bio.twitter.match(/twitter/) == 'twitter'){
-        return this.guest.bio.twitter
-      } else {
-        return 'http://twitter.com/' + this.guest.bio.twitter
+      var link = this.guest.bio.twitter
+      if (this.guest.bio.twitter.match(/twitter/) != 'twitter'){
+        link =  'twitter.com/' + link
       }
+      if(this.guest.bio.twitter.match(/http/) != 'http') {
+        link = 'http://' + link
+      }
+      return link
     }
   }
 }
