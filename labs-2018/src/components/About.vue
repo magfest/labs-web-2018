@@ -10,6 +10,12 @@
     >
       See Our Guests
     </v-btn>
+    <v-btn
+      to="/bands"
+      color="secondary"
+    >
+      See Our Bands
+    </v-btn>
   </div>
 </template>
 
