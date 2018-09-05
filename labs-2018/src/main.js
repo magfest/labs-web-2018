@@ -22,6 +22,7 @@ import Home from './components/Home'
 import Faq from "./components/Faq"
 import Guests from "./components/Guests"
 import Bands from "./components/Bands"
+import Schedule from "./components/Schedule"
 import store from './store'
 const router = new VueRouter({
   mode: 'history',
@@ -38,6 +39,9 @@ const router = new VueRouter({
     },
     {
       path: '/bands', component: Bands
+    },
+    {
+      path: '/schedule', component: Schedule
     }
   ]
 })

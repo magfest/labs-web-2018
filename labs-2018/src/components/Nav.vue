@@ -3,8 +3,12 @@
     <v-toolbar-title><v-btn flat to="/" active-class="">MagLabs 2018</v-btn></v-toolbar-title>
     <v-spacer></v-spacer>
       <span v-if="windowSize.x > 768">
-        <v-btn 
-          flat 
+      <v-btn
+        flat
+        :to="{path:'/schedule'}"
+        >Schedule</v-btn>
+        <v-btn
+          flat
           :to="{path:'/faq'}"
           >FAQ</v-btn>
         <Hotel :use="'nav'"/>
@@ -16,6 +20,7 @@
             <span><v-icon>more_vert</v-icon></span>
           </v-toolbar-title>
           <v-list>
+            <v-list-tile :to="{path:'/schedule'}">Schedule</v-list-tile>
             <v-list-tile :to="{path:'/faq'}">FAQ</v-list-tile>
             <v-list-tile href="https://book.passkey.com/event/49604307/owner/10925932/landing">Book Now</v-list-tile>
             <v-list-tile href="https://labs2018.uber.magfest.org/uber/preregistration/form">Register</v-list-tile>
@@ -73,5 +78,3 @@ export default {
   display: true;
 }
 </style>
-
-
