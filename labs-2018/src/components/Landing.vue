@@ -2,9 +2,7 @@
   <v-jumbotron color="Light">
     <v-container id="jumbo">
       <img :src="require('../assets/maglabs2018.png')">
-      <p>September 7-9, 2018</p>
-      <p>Hilton Alexandria Mark Center</p>
-
+      <p>MAGLabs will return in full at a new DC-area venue in Spring 2020.  Keep on top of our mini events until then at <a href="https://twitter.com/maglabsrt</a>twitter.com/maglabsrt !</p>
     </v-container>
   </v-jumbotron>
 
@@ -13,7 +11,7 @@
 <script>
 
 export default {
- 
+
 }
 </script>
 
@@ -24,4 +22,3 @@ export default {
   font-size: x-large;
 }
 </style>
-
